@@ -1,12 +1,11 @@
-#include<stdlib.h>
 #include<stdio.h>
 #include"CRC16_ModBus.h"
 
-void CRC16_Modbus_Outdata(unsigned short buffer[], unsigned short sizedata)
+unsigned short int CRC16_Modbus_Outdata(unsigned char buffer[], unsigned char sizedata)
 {
     //Variaveis de controle
     unsigned char cont         = 0;
-    unsigned short ValidadeCRC = 0;
+
     //Variaveis utilizadas no calculo
 	unsigned short int CRC = 0xFFFF;
 
@@ -32,12 +31,10 @@ void CRC16_Modbus_Outdata(unsigned short buffer[], unsigned short sizedata)
         CRC ^= buffer[i];
 	}
 
-    //Adicionando o CRC ao Buffer, por padrão o LSB é transmitido primeiro
-    buffer[6] = (CRC >> 8);
-    buffer[5] = (CRC & 0x00FF);
+   return CRC;
 }
 
-void CRC16_Modbus_Indata(unsigned short buffer[], unsigned short sizedata)
+void CRC16_Modbus_Indata(unsigned char buffer[], unsigned char sizedata)
 {
     //Variaveis de controle
     unsigned char cont          = 0;

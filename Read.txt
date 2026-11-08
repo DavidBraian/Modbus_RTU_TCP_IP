@@ -1,0 +1,3 @@
+Comando para compilar o código no terminal do VSCode :
+
+gcc ModBus_Master.c CRC16_ModBus.c -o ModBus_Master.exe
