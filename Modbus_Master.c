@@ -24,9 +24,13 @@ int main()
         case 0x03:
 
                 //Preenchendo no buffer de entrada o endereço inicial e quantidade de variaveis a serem lidas
-                printf("Quer ler a partir de qual endereco ? :\n");
+                printf("Quer ler a partir de qual endereco ?, informe o byte mais significativo (MSB) :\n");
+                scanf("%x",&bufferOut[2]);
+                printf("Agora informe o byte menos significativo (LSB) do endereco :\n");
                 scanf("%x",&bufferOut[3]);
-                printf("Quantos enderecos voce quer ler ? :\n");
+                printf("Quantos enderecos voce quer ler ?, informe o byte mais significativo (MSB) :\n");
+                scanf("%x",&bufferOut[4]);
+                printf("Agora informe o byte menos significativo (LSB) da quantidade dos enderecos :\n");
                 scanf("%x",&bufferOut[5]);
 
                 //Configurando variavel de controle
@@ -41,8 +45,8 @@ int main()
                 }
 
                 //Calculando CRC
-                printf("[%X]",(bufferOut[7] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) >> 8)));
-                printf("[%X]",(bufferOut[6] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) & 0x00FF)));
+                printf("[%X]",(bufferOut[7] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) & 0x00FF))); //LSB
+                printf("[%X]",(bufferOut[6] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) >> 8)));     //MSB
                 printf("\n\n\n\n");
 
                 break;
@@ -50,10 +54,14 @@ int main()
         case 0x05:
 
                 //Preenchendo no buffer de entrada demais informações da função 5 modbus
-                printf("Qual e o endereco da variavel ? :\n");
+                printf("Qual e o endereco da variavel ?, informe o byte mais significativo (MSB) :\n");
                 scanf("%x",&bufferOut[2]);
-                printf("Qual e o valor a ser escrito ? :\n");
+                printf("Agora informe o byte menos significativo (LSB) do endereço :\n");
                 scanf("%x",&bufferOut[3]);
+                printf("Qual valor deseja escrever na variavel ?, informe o byte mais significativo (MSB) :\n");
+                scanf("%x",&bufferOut[4]);
+                printf("Agora informe o byte menos significativo (LSB) do valor a ser escrito :\n");
+                scanf("%x",&bufferOut[5]);
 
                 //Configurando variavel de controle 
                 tamanhoDados = 6;
@@ -68,8 +76,8 @@ int main()
                 }
 
                 //Calculando CRC
-                printf("[%X]",(bufferOut[7] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) >> 8)));
-                printf("[%X]",(bufferOut[6] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) & 0x00FF)));
+                printf("[%X]",(bufferOut[7] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) & 0x00FF))); //LSB
+                printf("[%X]",(bufferOut[6] = (CRC16_Modbus_Outdata(&bufferOut[0],tamanhoDados) >> 8)));     //MSB
                 printf("\n\n\n\n");
 
                 break;
